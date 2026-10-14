@@ -54,11 +54,11 @@ async function fetchJson(url) {
 
 
 async function getCatalogPage(cursor) {
-  const url = new URL("https://catalog.roblox.com/v1/search/items/details");
-  url.searchParams.set("Category", "2");
-  url.searchParams.set("Limit", "30");
-  url.searchParams.set("SortType", "4");
-  if (cursor) url.searchParams.set("Cursor", cursor);
+  const url = new URL("https://catalog.roblox.com/v2/search/items/details");
+  url.searchParams.set("categoryFilter", "Collectibles");
+  url.searchParams.set("limit", "30");
+  url.searchParams.set("sortType", "PriceLowToHigh");
+  if (cursor) url.searchParams.set("cursor", cursor);
   return fetchJson(url.toString());
 }
 
