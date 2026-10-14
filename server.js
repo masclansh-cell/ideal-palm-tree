@@ -135,13 +135,16 @@ async function runScan() {
         if (price !== null && price <= config.maxPrice) {
           found.push({ ...item, price, url: `https://www.roblox.com/catalog/${item.id}/` });
         }
-      } catch (error) {
-        apiFailures++;
-        if (error.status === 429) {
-          log("Roblox rate-limited reseller lookups. Ending this scan early.");
-          break;
-        }
-      }
+     
+} catch (error) {
+  apiFailures++;
+  log(`Reseller lookup failed for ${item.id}: ${error.message}`);
+  if (error.status === 429) {
+    log("Roblox rate-limited reseller lookups. Ending this scan early.");
+    break;
+  }
+}
+
       if (i < entries.length - 1) await delay(350);
     }
 
