@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: limited-radar
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: SCAN_INTERVAL_MINUTES
+        value: 15
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
