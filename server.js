@@ -52,15 +52,16 @@ async function fetchJson(url) {
   return response.json();
 }
 
+
 async function getCatalogPage(cursor) {
   const url = new URL("https://catalog.roblox.com/v1/search/items/details");
-  url.searchParams.set("Category", "2"); // Collectibles
+  url.searchParams.set("Category", "2");
   url.searchParams.set("Limit", "30");
-  url.searchParams.set("SortType", "4"); // Price ascending, where supported
-  url.searchParams.set("salesTypeFilter", "2");
+  url.searchParams.set("SortType", "4");
   if (cursor) url.searchParams.set("Cursor", cursor);
   return fetchJson(url.toString());
 }
+
 
 async function getLowestResale(assetId) {
   const url = `https://economy.roblox.com/v1/assets/${encodeURIComponent(assetId)}/resellers?limit=10&cursor=`;
