@@ -1,81 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Limited Radar — All-Limited Deal Scanner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#110d16">
+<title>Limited Radar — Rolimons Market Explorer</title>
 <style>
-:root{color-scheme:dark;--bg:#0b0b12;--panel:#151522;--text:#f6f4ff;--muted:#a6a3bd;--red:#ff536e;--gold:#ffc05c;--line:#303047;--green:#64e6a8}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% 0%,#3a1c2a 0,transparent 36%),radial-gradient(ellipse at 90% 12%,#39260d 0,transparent 31%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);min-height:100vh}
-.wrap{max-width:1100px;margin:auto;padding:28px 20px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:38px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.5px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--red),var(--gold));color:#1d1118;display:grid;place-items:center;font-size:24px}.tag{border:1px solid #6b4d2e;background:#2c2117;color:#ffdda7;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.7px}
-.hero{margin-bottom:25px}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:2px}.hero h1{font-size:clamp(36px,6vw,62px);line-height:.98;letter-spacing:-2.7px;margin:13px 0 17px}.gradient{background:linear-gradient(90deg,#ff637d,#ffd075);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:720px;color:var(--muted);line-height:1.7;margin:0}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:17px}.panel{background:linear-gradient(180deg,#191927f5,#13131df5);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 18px 50px #0003}.panel h2{font-size:17px;margin:0 0 6px}.muted{font-size:13px;color:var(--muted);line-height:1.55;margin:0 0 18px}
-label{display:block;font-size:12px;color:#d2d0e1;font-weight:800;margin:16px 0 8px}input,select{width:100%;background:#0d0d16;border:1px solid #39394e;border-radius:11px;padding:13px 14px;color:var(--text);font:inherit;outline:none}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #ffc05c1c}.controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}.btn{border:0;border-radius:11px;padding:13px 16px;font-weight:900;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn:disabled{opacity:.6;cursor:wait}.primary{background:linear-gradient(100deg,var(--red),var(--gold));color:#20121a;width:100%;margin-top:18px}.secondary{background:#29293b;color:#f5f4ff;border:1px solid #41415a}.buttons{display:flex;gap:9px;margin-top:11px}.buttons .btn{flex:1}.status{margin-top:15px;padding:12px 13px;border-radius:11px;background:#10101a;border:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.55;overflow-wrap:anywhere}.status.good{color:var(--green);border-color:#28664d}.status.bad{color:#ff9cac;border-color:#713447}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px}.stat{background:#10101a;border:1px solid var(--line);border-radius:14px;padding:13px}.stat .n{font-size:25px;font-weight:900;letter-spacing:-1px}.stat .l{font-size:11px;color:var(--muted);margin-top:4px}.note{background:#201a18;border:1px solid #4b3526;border-radius:13px;padding:13px;color:#dfc6a9;font-size:12px;line-height:1.6}.note strong{color:#ffdda7}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:26px 0 12px}.section-head h2{margin:0;font-size:17px}.count{font-size:11px;color:var(--muted);background:#262638;padding:5px 8px;border-radius:8px}.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.empty{grid-column:1/-1;border:1px dashed #3b3b50;border-radius:14px;padding:25px;text-align:center;color:var(--muted);font-size:13px;line-height:1.7}.deal{background:#151522;border:1px solid var(--line);border-radius:15px;padding:14px;min-width:0}.deal .thumb{height:68px;border-radius:11px;background:linear-gradient(135deg,#39212f,#342a18);display:grid;place-items:center;font-size:30px;margin-bottom:12px}.deal .name{font-size:13px;font-weight:850;line-height:1.4;overflow-wrap:anywhere;min-height:36px}.deal .price{font-size:20px;color:var(--gold);font-weight:950;margin-top:10px}.deal .id{font-size:10px;color:var(--muted);margin-top:5px}.deal a{display:inline-block;color:#ffc66d;font-size:11px;margin-top:10px;text-decoration:none}.deal a:hover{text-decoration:underline}.logs{font-size:11px;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
-.item-tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.item-tools input{flex:1;min-width:180px}
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:15px;background:#11111b}
-.items-table{width:100%;border-collapse:collapse;min-width:650px}.items-table th,.items-table td{padding:13px 14px;text-align:left;border-bottom:1px solid #29293d;font-size:12px}
-.items-table th{color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:#171725}
-.items-table tr:last-child td{border-bottom:0}.item-name{display:flex;align-items:center;gap:11px;font-weight:800}.item-img{width:42px;height:42px;border-radius:10px;object-fit:cover;background:linear-gradient(135deg,#39212f,#342a18);flex-shrink:0}.item-value{color:var(--gold);font-weight:900}.item-rap{color:#c8c5df;font-weight:800}.item-link{color:#ffc66d;text-decoration:none}.item-link:hover{text-decoration:underline}.item-state{padding:12px;color:var(--muted);font-size:12px;line-height:1.6}.pill{display:inline-block;border:1px solid #3b3b50;border-radius:999px;padding:4px 7px;color:#d8d5ec;font-size:10px}
-.foot{font-size:11px;color:#77758e;text-align:center;line-height:1.7;margin-top:25px}
-@media(max-width:780px){.grid{grid-template-columns:1fr}.results{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:20px 14px 40px}.panel{padding:18px}}@media(max-width:450px){.results,.controls{grid-template-columns:1fr}.tag{font-size:9px}}
-</style></head><body><div class="wrap">
-<header class="top"><div class="brand"><div class="logo">◈</div> LIMITED RADAR</div><div class="tag">ALL-LIMITED DEAL SCANNER</div></header>
-<section class="hero"><div class="eyebrow">Catch the underpriced listings</div><h1>One price limit.<br><span class="gradient">All the deals we can find.</span></h1><p>The backend searches Roblox collectible catalog pages, checks resale listings, and can send new price hits to your Discord webhook. It is a best-effort scanner, not a guarantee of every Limited on Roblox.</p></section>
-<div class="grid"><section class="panel"><h2>Scanner settings</h2><p class="muted">Set a target price and scanning frequency. The server does the API requests.</p>
-<div class="controls"><div><label for="maxPrice">Maximum resale price (R$)</label><input id="maxPrice" type="number" min="1" value="500"></div><div><label for="pages">Catalog pages per scan</label><select id="pages"><option value="1">1 page · lighter</option><option value="3" selected>3 pages</option><option value="5">5 pages</option><option value="10">10 pages · slower</option></select></div></div>
-<label for="interval">Automatic scan interval</label><select id="interval"><option value="0">Manual only</option><option value="5" selected>Every 5 minutes</option><option value="15">Every 15 minutes</option><option value="30">Every 30 minutes</option><option value="60">Every hour</option></select>
-<button class="btn primary" id="scan">⌕ Scan for Limited deals</button><div class="buttons"><button class="btn secondary" id="save">Save settings</button><button class="btn secondary" id="refresh">Refresh status</button></div>
-<div id="status" class="status">Connecting to your backend…</div></section>
-<aside class="panel"><h2>Scanner status</h2><p class="muted">Live information from your server.</p><div class="stats"><div class="stat"><div class="n" id="scanned">0</div><div class="l">Reseller checks</div></div><div class="stat"><div class="n" id="found">0</div><div class="l">Current deals</div></div></div><div class="note" id="discord">Checking Discord setup…</div><label>Recent server activity</label><div id="logs" class="logs">No activity yet.</div></aside></div>
-<div class="section-head"><h2>Deals below your limit</h2><span class="count" id="count">0 DEALS</span></div><div class="results" id="results"><div class="empty">No results yet. Press Scan to start.</div></div>
-<div class="foot">Free hosting can sleep, restart, or lose in-memory state. Roblox can rate-limit or change its experimental APIs. Never paste your Roblox password or cookie into this website.</div>
+:root{color-scheme:dark;--bg:#0b0a10;--panel:#15131e;--panel2:#1b1725;--text:#f8f5ff;--muted:#aaa4bd;--red:#ff526e;--gold:#ffc15e;--line:#30283d;--green:#64e6a8;--purple:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 8% 0%,#3d1c2a 0,transparent 34%),radial-gradient(ellipse at 93% 15%,#3a270e 0,transparent 32%),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);min-height:100vh}
+.wrap{max-width:1240px;margin:auto;padding:26px 20px 48px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:42px}.brand{display:flex;align-items:center;gap:11px;font-weight:950;letter-spacing:.4px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,var(--red),var(--gold));color:#211119;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 30px #ff536e33}.tag{border:1px solid #6b4d2e;background:#2c2117;color:#ffdda7;padding:8px 12px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:1px}.hero{margin-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.hero-copy{max-width:820px}.eyebrow{color:var(--gold);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:2.3px}.hero h1{font-size:clamp(38px,6.5vw,70px);line-height:.98;letter-spacing:-3px;margin:13px 0 18px}.gradient{background:linear-gradient(90deg,#ff637d,#ffd075 56%,#ffeda5);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:750px;color:var(--muted);line-height:1.75;margin:0;font-size:14px}.source-chip{align-self:flex-end;border:1px solid #3c344e;background:#171421d9;border-radius:14px;padding:13px 15px;min-width:170px}.source-chip .small{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}.source-chip strong{display:block;margin-top:5px;color:#c9b5ff;font-size:14px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px}.panel{background:linear-gradient(180deg,#191622f5,#13111bf5);border:1px solid var(--line);border-radius:21px;padding:21px;box-shadow:0 18px 54px #0003}.panel h2{font-size:17px;margin:0 0 6px;letter-spacing:-.3px}.muted{font-size:12px;color:var(--muted);line-height:1.65;margin:0 0 17px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}label{display:block;font-size:11px;color:#d9d4e8;font-weight:850;margin:13px 0 8px}input,select{width:100%;background:#0d0b14;border:1px solid #3b334b;border-radius:11px;padding:12px 13px;color:var(--text);font:inherit;font-size:13px;outline:none}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #ffc05c1c}.btn{border:0;border-radius:11px;padding:12px 15px;font-size:12px;font-weight:950;cursor:pointer;transition:transform .15s,filter .15s}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:wait;transform:none}.primary{background:linear-gradient(100deg,var(--red),var(--gold));color:#211219;width:100%;margin-top:17px}.secondary{background:#29243a;color:#f5f2ff;border:1px solid #443b58}.buttons{display:flex;gap:9px;margin-top:10px}.buttons .btn{flex:1}.status{margin-top:13px;padding:11px 12px;border-radius:11px;background:#100e17;border:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.6;overflow-wrap:anywhere}.status.good{color:var(--green);border-color:#28664d}.status.bad{color:#ff9cac;border-color:#713447}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}.stat{background:#100e17;border:1px solid var(--line);border-radius:13px;padding:13px}.stat .n{font-size:25px;font-weight:950;letter-spacing:-1px}.stat .l{font-size:10px;color:var(--muted);margin-top:5px}.note{background:#201a18;border:1px solid #4b3526;border-radius:13px;padding:12px;color:#dfc6a9;font-size:11px;line-height:1.65}.note strong{color:#ffdda7}.logs{font-size:10px;color:var(--muted);line-height:1.9;overflow-wrap:anywhere;max-height:200px;overflow:auto}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:29px 0 13px}.section-head h2{margin:0;font-size:21px;letter-spacing:-.6px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.5}.count{font-size:10px;color:#ded7f1;background:#29243a;border:1px solid #413652;padding:6px 9px;border-radius:8px;white-space:nowrap}.catalog{background:linear-gradient(180deg,#181521f5,#121019f5);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 18px 54px #0002}.catalog-top{padding:16px;border-bottom:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;align-items:center}.catalog-top input{flex:1;min-width:220px}.catalog-top select{width:auto;min-width:180px}.table-wrap{overflow-x:auto}.items-table{width:100%;border-collapse:collapse;min-width:750px}.items-table th,.items-table td{padding:12px 14px;text-align:left;border-bottom:1px solid #292437;font-size:12px;vertical-align:middle}.items-table th{color:#a9a1bc;font-size:9px;letter-spacing:1.1px;text-transform:uppercase;background:#191622;position:sticky;top:0;z-index:1}.items-table tbody tr{transition:background .15s}.items-table tbody tr:hover{background:#201a2b}.items-table tbody tr:last-child td{border-bottom:0}.item-name{display:flex;align-items:center;gap:11px;min-width:225px;font-weight:850}.item-img{width:48px;height:48px;border-radius:12px;object-fit:contain;background:radial-gradient(circle at 50% 35%,#403047,#171421);border:1px solid #393047;flex-shrink:0}.item-title{display:flex;flex-direction:column;gap:4px}.item-sub{font-size:9px;color:var(--muted);font-weight:500}.item-value{color:var(--gold);font-weight:950;white-space:nowrap}.item-rap{color:#e5ddf5;font-weight:800;white-space:nowrap}.item-link{color:#ffc66d;text-decoration:none;font-size:11px;font-weight:800}.item-link:hover{text-decoration:underline}.pill{display:inline-block;border:1px solid #3b334a;border-radius:999px;padding:4px 7px;color:#d8d1e8;font-size:10px;white-space:nowrap}.pill.high{border-color:#236448;color:#8ce7b8;background:#10231c}.pill.warn{border-color:#664e27;color:#ffd48a;background:#272013}.item-state{padding:22px!important;color:var(--muted);font-size:12px!important;line-height:1.7}.catalog-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:10px}.foot{font-size:10px;color:#77718a;text-align:center;line-height:1.8;margin-top:23px}.foot a{color:#c1a5ff;text-decoration:none}.hide{display:none!important}
+@media(max-width:850px){.hero{display:block}.source-chip{display:inline-block;margin-top:18px}.grid{grid-template-columns:1fr}.top{margin-bottom:30px}}@media(max-width:520px){.wrap{padding:18px 12px 35px}.panel{padding:16px}.hero h1{letter-spacing:-2px}.controls{grid-template-columns:1fr}.tag{font-size:8px}.section-head h2{font-size:18px}.catalog-top input,.catalog-top select{width:100%;min-width:0}.catalog-bottom{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand"><div class="logo">◈</div> LIMITED RADAR</div><div class="tag">ROLIMONS MARKET EXPLORER</div></header>
+  <section class="hero"><div class="hero-copy"><div class="eyebrow">Roblox limiteds · market reference</div><h1>Know the item.<br><span class="gradient">Know its value.</span></h1><p>Explore Limited items with thumbnails, recent average price (RAP), and Rolimons value in Robux. Search the catalog, sort by price or value, and filter items by a RAP threshold. This version uses Rolimons for item data instead of checking Roblox reseller endpoints.</p></div><div class="source-chip"><div class="small">Data provider</div><strong>◈ Rolimons API</strong><div class="small" id="updatedAt">Waiting for item data…</div></div></section>
+  <div class="grid">
+    <section class="panel"><h2>RAP filter</h2><p class="muted">Choose a RAP ceiling to make a quick shortlist. RAP is a recent-average metric, not the current lowest asking price.</p>
+      <div class="controls"><div><label for="maxPrice">Maximum RAP (R$)</label><input id="maxPrice" type="number" min="1" max="100000000" value="500"></div><div><label for="interval">Automatic refresh</label><select id="interval"><option value="0">Manual only</option><option value="5">Every 5 minutes</option><option value="15" selected>Every 15 minutes</option><option value="30">Every 30 minutes</option><option value="60">Every hour</option></select></div></div>
+      <button class="btn primary" id="scan">⌕ Refresh RAP shortlist</button><div class="buttons"><button class="btn secondary" id="save">Save settings</button><button class="btn secondary" id="refresh">Refresh data</button></div><div id="status" class="status">Connecting to the backend…</div>
+    </section>
+    <aside class="panel"><h2>Scanner status</h2><p class="muted">Latest snapshot from the server.</p><div class="stats"><div class="stat"><div class="n" id="scanned">—</div><div class="l">Items in catalog</div></div><div class="stat"><div class="n" id="found">—</div><div class="l">Below RAP limit</div></div></div><div class="note" id="discord"><strong>Discord:</strong> checking webhook setup…</div><label>Recent activity</label><div id="logs" class="logs">No activity yet.</div></aside>
+  </div>
+  <div class="section-head"><div><h2>Limited item catalog</h2><p>Values come from Rolimons and can change. Search every loaded item or sort the results.</p></div><span class="count" id="itemCount">LOADING…</span></div>
+  <section class="catalog"><div class="catalog-top"><input id="itemSearch" type="search" placeholder="Search by item name, acronym, or asset ID…" aria-label="Search items"><select id="itemSort" aria-label="Sort items"><option value="name">Sort: Name A–Z</option><option value="rapAsc">Sort: RAP low to high</option><option value="rapDesc">Sort: RAP high to low</option><option value="valueDesc">Sort: Value high to low</option><option value="valueAsc">Sort: Value low to high</option></select><select id="itemFilter" aria-label="Filter items"><option value="all">All loaded items</option><option value="valued">Items with a value</option><option value="threshold">At or below RAP limit</option><option value="projected">Projected items</option><option value="rare">Rare items</option></select></div>
+    <div class="table-wrap"><table class="items-table"><thead><tr><th>Item</th><th>RAP · Robux</th><th>Rolimons value</th><th>Demand</th><th>Trend</th><th>Links</th></tr></thead><tbody id="itemsBody"><tr><td colspan="6" class="item-state">Loading the Rolimons item catalog…</td></tr></tbody></table></div>
+    <div class="catalog-bottom"><span id="itemsState">Waiting for item data…</span><button class="btn secondary" id="showMore">Show more items</button></div>
+  </section>
+  <div class="foot">Data provider: <a href="https://www.rolimons.com/itemtable" target="_blank" rel="noopener noreferrer">Rolimons item table</a>. RAP and value are not live reseller asking prices. The public item-details API may change or be unavailable. Never enter your Roblox password or cookie into this website.</div>
 </div>
 <script>
-const $=id=>document.getElementById(id);
-function setStatus(t,kind=''){ $('status').textContent=t;$('status').className='status '+kind; }
-async function api(url,options={}){const r=await fetch(url,{...options,headers:{'Content-Type':'application/json',...(options.headers||{})}});const d=await r.json().catch(()=>({error:'Invalid server response'}));if(!r.ok)throw new Error(d.error||`HTTP ${r.status}`);return d;}
-function renderDeals(deals){$('count').textContent=`${deals.length} DEAL${deals.length===1?'':'S'}`;$('found').textContent=deals.length;const root=$('results');root.innerHTML='';if(!deals.length){root.innerHTML='<div class="empty">No matching deals in the latest scan.<br>Try more pages or a higher price limit.</div>';return;}for(const d of [...deals].sort((a,b)=>a.price-b.price)){const card=document.createElement('article');card.className='deal';const thumb=document.createElement('div');thumb.className='thumb';thumb.textContent='◈';const name=document.createElement('div');name.className='name';name.textContent=d.name;const price=document.createElement('div');price.className='price';price.textContent='R$ '+Number(d.price).toLocaleString();const id=document.createElement('div');id.className='id';id.textContent='Asset ID: '+d.id;const a=document.createElement('a');a.href=d.url||`https://www.roblox.com/catalog/${d.id}/`;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Open item ↗';card.append(thumb,name,price,id,a);root.append(card);}}
-async function refresh(){try{const d=await api('/api/status');$('maxPrice').value=d.config.maxPrice;$('pages').value=String(d.config.pages);$('interval').value=String(d.config.intervalMinutes);$('scanned').textContent=Number(d.itemsChecked).toLocaleString();renderDeals(d.deals||[]);$('discord').innerHTML=d.discordConfigured?'<strong>Discord:</strong> webhook configured. New deals can be posted to your channel.':'<strong>Discord:</strong> webhook not configured yet. Add DISCORD_WEBHOOK_URL in your hosting environment settings.';$('logs').innerHTML=(d.logs||[]).slice(0,8).map(x=>`${new Date(x.at).toLocaleTimeString()} — ${escapeHtml(x.message)}`).join('<br>')||'No activity yet.';if(d.running)setStatus('A scan is running on the server…');else if(d.lastError)setStatus(d.lastError,'bad');else setStatus(d.lastFinishedAt?'Connected · Last scan '+new Date(d.lastFinishedAt).toLocaleString():'Connected to backend. Ready to scan.','good');}catch(e){setStatus('Cannot reach backend: '+e.message+'. Open this page through your deployed Render URL, not as a local HTML file.','bad');}}
+const $ = id => document.getElementById(id);
+let catalogItems = [];
+let visibleCount = 100;
+let latestSourceTime = null;
 
-let catalogItems=[];
-function fmtRobux(v){return v===null||v===undefined||v===''?'—':'R$ '+Number(v).toLocaleString();}
-function renderItems(){
- const query=$('itemSearch').value.trim().toLowerCase(), sort=$('itemSort').value;
- let list=catalogItems.filter(x=>String(x.name||'').toLowerCase().includes(query)||String(x.id||'').includes(query));
- list.sort((a,b)=>sort==='price'?(Number(a.price??Infinity)-Number(b.price??Infinity)):sort==='value'?(Number(b.value||0)-Number(a.value||0)):sort==='rap'?(Number(b.rap||0)-Number(a.rap||0)):String(a.name||'').localeCompare(String(b.name||'')));
- $('itemCount').textContent=`${list.length} ITEM${list.length===1?'':'S'}`;
- const body=$('itemsBody');body.replaceChildren();
- if(!list.length){body.innerHTML='<tr><td colspan="5" class="item-state">No items match this search, or the backend has not supplied any item data yet.</td></tr>';return;}
- for(const item of list){
-  const tr=document.createElement('tr'), nameCell=document.createElement('td'), nameWrap=document.createElement('div');nameWrap.className='item-name';
-  if(item.image){const img=document.createElement('img');img.className='item-img';img.src=item.image;img.alt='';img.loading='lazy';nameWrap.append(img);}else{const icon=document.createElement('span');icon.className='item-img';icon.style.display='grid';icon.style.placeItems='center';icon.textContent='◈';nameWrap.append(icon);}
-  const name=document.createElement('span');name.textContent=item.name||('Limited #'+item.id);nameWrap.append(name);nameCell.append(nameWrap);
-  const price=document.createElement('td');price.className='item-rap';price.textContent=fmtRobux(item.price);
-  const rap=document.createElement('td');rap.className='item-rap';rap.textContent=fmtRobux(item.rap);
-  const value=document.createElement('td');value.className='item-value';value.textContent=fmtRobux(item.value);
-  const deal=document.createElement('td');
-  if(item.price!=null&&item.value!=null&&Number(item.value)>0){const pct=(1-Number(item.price)/Number(item.value))*100;const pill=document.createElement('span');pill.className='pill';pill.textContent=pct>0?`${pct.toFixed(1)}% below value`:`${Math.abs(pct).toFixed(1)}% over value`;deal.append(pill);}
-  else deal.textContent='—';
-  if(item.url){const link=document.createElement('a');link.className='item-link';link.href=item.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open ↗';link.style.marginLeft='8px';deal.append(link);}
-  tr.append(nameCell,price,rap,value,deal);body.append(tr);
- }
+function esc(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[c]));
 }
-async function loadItems(){
- try{
-  const d=await api('/api/items');
-  catalogItems=Array.isArray(d)?d:(d.items||[]);
-  $('itemsState').textContent=catalogItems.length?'Item data loaded from your backend. Values can change and may not be live.':'The backend returned no items yet.';
-  renderItems();
- }catch(e){
-  $('itemsBody').innerHTML='<tr><td colspan="5" class="item-state">Item catalog is not connected yet.</td></tr>';
-  $('itemsState').textContent='Your current backend does not appear to provide /api/items. The page needs a backend endpoint that retrieves Rolimons item details and current listing prices; this HTML alone cannot safely provide live values.';
- }
-}
-$('itemSearch').addEventListener('input',renderItems);
-$('itemSort').addEventListener('change',renderItems);
 
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-async function saveConfig(scanAfter=false){try{const d=await api('/api/config',{method:'POST',body:JSON.stringify({maxPrice:Number($('maxPrice').value),pages:Number($('pages').value),intervalMinutes:Number($('interval').value),enabled:Number($('interval').value)>0})});setStatus('Settings saved on the backend.','good');if(scanAfter)await doScan();else await refresh();}catch(e){setStatus(e.message,'bad');}}
-async function doScan(){try{setStatus('Scanning catalog pages and checking resale prices…');$('scan').disabled=true;await saveConfig(false);const d=await api('/api/scan',{method:'POST',body:'{}'});setStatus(`Scan finished: checked ${d.itemsChecked} resale listings and found ${d.dealCount} deal(s).`,'good');await refresh();}catch(e){setStatus('Scan failed: '+e.message,'bad');}finally{$('scan').disabled=false;}}
-$('save').addEventListener('click',()=>saveConfig(false));$('scan').addEventListener('click',()=>saveConfig(true));$('refresh').addEventListener('click',()=>{refresh();loadItems();});refresh();loadItems();setInterval(refresh,30000);
-</script></body></html>
+function fmtRobux(value) {
+  return value === null || value === undefined || value === ''
+    ? '—'
+    : 'R$ ' + Number(value).toLocaleString();
+}
+
+function setStatus(message, kind = '') {
+  $('status').textContent = message;
+  $('status').className = 'status ' + kind;
+}
+
+async function api(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    }
+  });
+
+  const data = await response.json().catch(() => ({
+    error: 'Invalid server response'
+  }));
+
+  if (!response.ok) {
+    throw new Error(data.error || `HTTP ${response.status}`);
+  }
+
+  return data;
+}
+
+function renderItems(resetCount = false) {
+  if (resetCount) visibleCount = 100;
+
+  const query = $('itemSearch').value.trim().toLowerCase();
+  const sort = $('itemSort').value;
+  const filter = $('itemFilter').value;
+
+  let list = catalogItems.filter(item => {
+    const matchesQuery =
+      `${item.name || ''} ${item.acronym || ''} ${item.id || ''}`
+        .toLowerCase()
+        .includes(query);
+
+    const matchesFilter =
+      filter === 'all' ||
+      (filter === 'valued' && item.value !== null && item.value > 0) ||
+      (filter === 'threshold' &&
+        item.rap !== null &&
+        item.rap <= Number($('maxPrice').value)) ||
+      (filter === 'projected' && item.projected) ||
+      (filter === 'rare' && item.rare);
+
+    return matchesQuery && matchesFilter;
+  });
+
+  list.sort((a, b) => {
+    if (sort === 'rapAsc') {
+      return (a.rap ?? Infinity) - (b.rap ?? Infinity);
+    }
+
+    if (sort === 'rapDesc') {
+      return (b.rap ?? -1) - (a.rap ?? -1);
+    }
+
+    if (sort === 'valueDesc') {
+      return (b.value ?? -1) - (a.value ?? -1);
+    }
+
+    if (sort === 'valueAsc') {
+      return (a.value ?? Infinity) - (b.value ?? Infinity);
+    }
+
+    return String(a.name || '').localeCompare(String(b.name || ''));
+  });
+
+  $('itemCount').textContent =
+    `${list.length.toLocaleString()} ITEM${list.length === 1 ? '' : 'S'}`;
+
+  $('showMore').classList.toggle('hide', visibleCount >= list.length);
+
+  const visible = list.slice(0, visibleCount);
+  const body = $('itemsBody');
+
+  body.replaceChildren();
+
+  if (!visible.length) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+
+    cell.colSpan = 6;
+    cell.className = 'item-state';
+    cell.textContent =
+      'No items match those filters, or the catalog has not loaded.';
+
+    row.append(cell);
+    body.append(row);
+    return;
+  }
+
+  for (const item of visible) {
+    const row = document.createElement('tr');
+
+    const itemCell = document.createElement('td');
+    const wrap = document.createElement('div');
+
+    wrap.className = 'item-name';
+
+    const img = document.createElement('img');
+    img.className = 'item-img';
+    img.loading = 'lazy';
+    img.alt = '';
+    img.src = item.image || '';
+
+    img.onerror = () => {
+      img.onerror = null;
+      img.removeAttribute('src');
+      img.style.display = 'none';
+    };
+
+    wrap.append(img);
+
+    const title = document.createElement('div');
+    title.className = 'item-title';
+
+    const name = document.createElement('span');
+    name.textContent = item.name || `Limited item ${item.id}`;
+
+    const sub = document.createElement('span');
+    sub.className = 'item-sub';
+    sub.textContent =
+      (item.acronym ? `${item.acronym} · ` : '') + `ID ${item.id}`;
+
+    title.append(name, sub);
+    wrap.append(title);
+    itemCell.append(wrap);
+
+    const rap = document.createElement('td');
+    rap.className = 'item-rap';
+    rap.textContent = fmtRobux(item.rap);
+
+    const value = document.createElement('td');
+    value.className = 'item-value';
+    value.textContent = fmtRobux(item.value);
+
+    const demand = document.createElement('td');
+    const demandPill = document.createElement('span');
+
+    demandPill.className =
+      'pill' +
+      (item.demand === 'High' || item.demand === 'Amazing
